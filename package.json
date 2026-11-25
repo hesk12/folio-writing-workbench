@@ -1,0 +1,12 @@
+{
+  "name": "folio-writing-workbench",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A local writing workbench for graduate application essays",
+  "license": "MIT",
+  "engines": { "node": ">=24.5.0" },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test ui.test.mjs workflow.test.mjs"
+  }
+}

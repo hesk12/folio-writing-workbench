@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f4ea"><title>Folio · 文书工作台</title><link rel="icon" href="/folio.svg"><link rel="stylesheet" href="/style.css"></head>
+<body>
+<header class="mast"><div class="brand"><img src="/folio.svg" width="36" height="36" alt=""><strong>Folio</strong><i></i><span>文书工作台</span></div>
+<div class="toptools"><label class="projectpick"><span aria-hidden="true">▤</span><select id="projects" aria-label="切换文稿"></select></label><button id="add" class="iconbtn" title="新建文稿" aria-label="新建文稿">＋</button><button id="settings" class="quiet"><span aria-hidden="true">⚙</span> 模型设置</button></div></header>
+<main>
+<div class="dochead"><div><div class="eyebrow"><span class="smallrule"></span><span id="school">申请文书</span></div><h1 id="title">Statement of Purpose</h1></div><button id="focus" class="quiet focus"><span aria-hidden="true">⛶</span> <span id="focusLabel">专注写作</span></button></div>
+<nav class="tabs" aria-label="工作区视图"><button data-tab="write" class="active">文稿</button><button data-tab="brief">项目资料</button><button data-tab="library">资料库</button><button data-tab="history">讨论记录</button></nav>
+<div class="workspace">
+<section id="paper" class="paper"><div class="paperbar"><span><span class="pen" aria-hidden="true">✎</span> 正文</span><button id="saved" class="sync" title="检查磁盘版本" aria-live="polite">读取中</button></div>
+<textarea id="draft" aria-label="文稿正文" spellcheck="false" placeholder="从你最想讲清楚的一个研究问题写起…"></textarea>
+<div class="paperfoot"><span id="wordcount"></span><div class="paperSelection"><span id="scope">选中文字可讨论这一段</span><button id="quoteDraft" type="button" class="quoteAction" hidden>＋ 引用</button></div></div></section>
+<section id="brief" class="sheet" hidden><h2>项目资料</h2><form id="briefForm">
+<label>申请题目与要求<textarea name="prompt" rows="3" placeholder="粘贴官方题目、字数限制和你关注的导师"></textarea></label>
+<label>本项目的 AI 使用范围<select name="policy"><option value="off">仅自己写作 · 暂停 AI</option><option value="grammar">仅检查语法、拼写和标点</option><option value="review">允许反馈 · 不生成文稿</option><option value="write">允许共同构思和写作</option></select></label>
+<label>学校政策与出处<textarea name="policyNote" rows="2" placeholder="记录该项目的具体限制、披露要求和官方链接"></textarea></label>
+<label>本项目素材<textarea name="notes" rows="4" placeholder="你的研究动机、项目连接点、需要保留的原话"></textarea></label><div class="formend"><button class="primary">保存项目资料</button></div></form></section>
+<section id="library" class="sheet" hidden><h2>共享资料库</h2><p class="textmuted">三个模型共用此目录，回答时可按需查阅正文。所有申请项目都能使用。</p>
+<div class="refActions"><button id="uploadRef" class="primary">上传文件</button><button id="pasteRef" class="outline">添加文本</button></div><div id="referenceList"></div><div id="legacyRefs"></div></section>
+<section id="history" class="sheet" hidden><h2>讨论记录</h2><div id="historyList"></div></section>
+<div id="splitter" role="separator" tabindex="0" aria-orientation="vertical" aria-label="调整对话栏宽度" aria-controls="studio" title="拖动或按左右方向键调整宽度，双击恢复默认"></div>
+<aside id="studio" class="studio"><div class="studiohead"><div class="eyebrow"><span class="smallrule"></span> WRITING ROOM</div><h2>协作室</h2></div>
+<div class="rolelist" aria-label="选择协作者"><button class="role" data-role="Claude" aria-pressed="true"><span class="glyph claude">✳</span><span><strong>Claude</strong><small>主编 · 结构与写作</small></span><i></i></button>
+<button class="role" data-role="Gemini" aria-pressed="false"><span class="glyph gemini">✦</span><span><strong>Gemini</strong><small>另一种写法 · 独立评阅</small></span><i></i></button>
+<button class="role" data-role="GPT" aria-pressed="false"><span class="glyph gpt">≋</span><span><strong>GPT</strong><small>事实核对 · 贡献与证据</small></span><i></i></button>
+</div><button id="pair" class="pair" aria-pressed="false"><span aria-hidden="true">◫</span> Claude 与 Gemini 独立双评</button>
+<div class="threadbar"><b id="threadLabel">新讨论</b><button id="switchModels" class="textbtn" hidden>切换型号</button><button id="newThread" class="textbtn" hidden>另开讨论</button></div>
+<div id="discussion"></div><div class="composer"><details class="materials"><summary id="target"></summary><div id="materialList"></div><section id="attachedRefs"></section></details><textarea id="question" rows="3" aria-label="写给协作者的问题" placeholder="你想和 Claude 讨论什么？"></textarea><label id="memoryOption" hidden><input type="checkbox" id="localMemory"> 查阅本地 Codex 记忆与偏好</label><label id="webOption"><input type="checkbox" id="webSearch"> 联网查资料</label><div class="composeActions"><button type="button" class="textbtn" id="openLibrary">查看资料库</button><button id="send" class="primary" title="Ctrl / ⌘ + Enter 发送">发送给 Claude</button></div></div><small id="callstatus" role="status"></small>
+</aside></div>
+</main><dialog id="modal" aria-labelledby="modalTitle"><form id="modalForm"><div class="dialoghead"><h2 id="modalTitle"></h2><button type="button" class="iconbtn" id="closeModal" aria-label="关闭">×</button></div><div id="modalBody"></div><p id="modalError" class="error" role="alert"></p><div class="formend"><button type="button" class="outline" id="cancelModal">取消</button><button class="primary" id="confirmModal">保存</button></div></form></dialog>
+<button type="button" id="quoteReply" class="quoteAction" hidden>＋ 引用</button><div id="toast" role="status" hidden></div><script type="module" src="/app.js"></script></body></html>

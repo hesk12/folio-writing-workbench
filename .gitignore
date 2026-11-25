@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+*.dpapi
+.folio/
+.folio.json
+data/
+资料库/
+SOP.md
+PS.md
+__pycache__/
+.venv/
+*.log
